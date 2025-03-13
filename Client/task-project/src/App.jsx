@@ -29,7 +29,7 @@ function App() {
   const [searchQuery, setSearchQuery] = useState('')
   
     const getData = async()=>{
-       const res = await axios.get(`http://localhost:3000/tasks?search=${searchQuery}`)
+       const res = await axios.get(`https://task-backend-ekpr.onrender.com/tasks?search=${searchQuery}`)
        console.log(res.data)
        setTasks(res.data)
     }
