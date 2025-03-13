@@ -13,7 +13,7 @@ const  Home = ({tasks,onUpdateClick, setTasks, handleSearch}) => {
 
   const handleDelete = async (id)=>{
     try {
-      await axios.delete(`http://localhost:3000/tasks/`+ id)
+      await axios.delete(`https://task-backend-ekpr.onrender.com/tasks/`+ id)
       setTasks(tasks.filter(task => task.id !== id))
       window.location.reload()
     } catch (error) {
