@@ -46,7 +46,7 @@ const Update = ({task, getData}) => {
       console.log(taskData)
 
       try {
-         const res = await axios.put(`http://localhost:3000/tasks/${task._id}`, taskData);   
+         const res = await axios.put(`https://task-backend-ekpr.onrender.com/tasks/${task._id}`, taskData);   
          await getData()
          console.log(res.data);
          navigate('/');     
