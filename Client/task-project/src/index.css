@@ -1,0 +1,48 @@
+
+.light .light-mode\:text-black {
+  color: black;
+}
+
+.light .light-mode\:text-white {
+  color: white;
+}
+.light .light-mode\:text-s {
+  color: rgb(219, 219, 219);
+}
+
+.light .light-mode-hover:hover {
+  background-color: #0b6bdb;
+  color:white;
+}
+
+.light .light-mode-bg-main {
+  background-color: white; 
+}
+
+.light .light-mode-bg-secondary {
+  background-color: #f4f5f9; 
+}
+
+.light .light-mode-bg-third {
+  background-color: #0b6bdb;
+}
+.light .light-mode-buttons {
+  background-color: #0b6bdb;
+}
+.light .light-mode-border {
+  border-color: white;
+}
+.light .light-mode-red {
+  color: #ff8e90
+}
+.light .light-mode-red-button {
+  background-color: #ee3134;
+  color:white
+}
+.light .light-mode-black-button {
+  background-color: black;
+  color:white
+}
+
+
+@import "tailwindcss";
