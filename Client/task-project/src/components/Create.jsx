@@ -45,7 +45,7 @@ const Create = ({setTasks}) => {
     console.log(taskData)
 
     try {
-      const res = await axios.post('http://localhost:3000/tasks', taskData )
+      const res = await axios.post('https://task-backend-ekpr.onrender.com/tasks', taskData )
       setTasks(prevTasks => [...prevTasks, res.data])
       toast.success('Task Created Sucessfully!', {
         position: "top-right",
