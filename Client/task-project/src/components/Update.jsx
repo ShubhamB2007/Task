@@ -55,7 +55,7 @@ const Update = ({task, getData}) => {
       console.log(taskData)
 
       try {
-         const res = await axios.put(`http://localhost:3000/tasks/${task._id}`, taskData);   
+         const res = await axios.put(`https://task-backend-ekpr.onrender.com/tasks/${task._id}`, taskData);   
          await getData()
          toast.success('Task Updated Successfully!', {
                 position: "top-right",
