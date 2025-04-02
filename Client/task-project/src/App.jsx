@@ -7,6 +7,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import axios from 'axios'
 import Update from './components/Update'
 import Settings from './components/Settings'
+import CreateVoice from './components/CreateVoice'
+import SpeechTest from './components/SpeechTest'
 
 function App() {
 
@@ -29,7 +31,7 @@ function App() {
   const [searchQuery, setSearchQuery] = useState('')
   
     const getData = async()=>{
-       const res = await axios.get(`https://task-backend-ekpr.onrender.com/tasks?search=${searchQuery}`)
+       const res = await axios.get(`http://localhost:3000/tasks?search=${searchQuery}`)
        console.log(res.data)
        setTasks(res.data)
     }
@@ -50,11 +52,19 @@ function App() {
        <Routes>
         <Route
         path='/'
-        element={<Home tasks={tasks} setTasks={setTasks} onUpdateClick={setSelectedTaskId} handleSearch={handleSearch} />}
+        element={<Home tasks={tasks} setTasks={setTasks} onUpdateClick={setSelectedTaskId} handleSearch={handleSearch} getData={getData} />}
         />
        <Route
        path='/create'
        element={<Create setTasks={setTasks}/>}
+       />
+       <Route
+       path='/voice'
+       element={<CreateVoice setTasks={setTasks} getData={getData}/>}
+       />
+       <Route
+       path='/test'
+       element={<SpeechTest/>}
        />
        <Route
        path='/update'

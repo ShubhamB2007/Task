@@ -5,17 +5,30 @@ import { FaRegClock } from "react-icons/fa6";
 import { RiFlag2Line } from "react-icons/ri";
 import { RiEditLine } from "react-icons/ri";
 import { Link } from 'react-router-dom'
+import {toast} from 'react-toastify'
 import { useState,useEffect } from 'react';
+import {motion} from 'framer-motion'
 import axios from 'axios'
 import { FaBriefcase, FaShoppingCart, FaHeartbeat, FaGraduationCap, FaPlaneDeparture , FaClipboardList, FaMusic, FaDumbbell, FaUtensils, FaUsers } from "react-icons/fa";
 
-const  Home = ({tasks,onUpdateClick, setTasks, handleSearch}) => {
+const taskVariants = {
+  hidden:{ opacity:0, x:-100 },
+  visible: (index)=>({
+     opacity:1, x:0,
+     transition:{delay:0.4 + index*0.3, duration:0.5} 
+  })
+}
+
+const  Home = ({tasks,onUpdateClick, setTasks, handleSearch, getData}) => {
 
   const handleDelete = async (id)=>{
     try {
-      await axios.delete(`https://task-backend-ekpr.onrender.com/tasks/`+ id)
+      await axios.delete(`http://localhost:3000/tasks/`+ id)
       setTasks(tasks.filter(task => task.id !== id))
-      window.location.reload()
+      await getData()
+      toast.success('Task Deleted Successfully!', {
+              position: "top-right",
+      });
     } catch (error) {
       console.log(error)
     }
@@ -44,13 +57,16 @@ const  Home = ({tasks,onUpdateClick, setTasks, handleSearch}) => {
            </div>
         </div>
         <p className='text-3xl text-white absolute top-40 left-32 font-bold max-sm:left-6.5 max-sm:text-xl max-sm:top-24 light-mode:text-black'>Manage Task</p>
+        <Link to='/voice'>
+        <button className='absolute max-sm:left-[170px] max-sm:ml-1 max-sm:w-28 max-sm:top-20 max-sm:mt-3 max-sm:text-[10px] max-sm:h-8 w-52 font-semibold cursor-pointer h-10 rounded-full text-white bg-linear-to-b from-[#967eff] to-[#684ae8] top-40 left-[58%]'>Use Voice Command</button>
+        </Link>
         <Link to='/create'>
-        <button className='absolute max-sm:left-60 max-sm:ml-1 max-sm:w-32 max-sm:top-20 max-sm:mt-3 max-sm:text-sm w-40 font-semibold cursor-pointer h-10 rounded-full text-white bg-linear-to-b from-[#967eff] to-[#684ae8] top-40 left-[76.8%]'>Add New Task</button>
-        </Link> 
+          <button className='absolute max-sm:left-72 max-sm:ml-1 max-sm:w-20 max-sm:top-20 max-sm:mt-3 max-sm:text-[10px] max-sm:h-8 w-40 font-semibold cursor-pointer h-10 rounded-full text-white bg-linear-to-b from-[#967eff] to-[#684ae8] top-40 left-[76.8%]'>Add New Task</button>
+          </Link> 
          
-        <div className='absolute w-[80%] max-sm:w-[88.5%] h-[490px] top-56 max-sm:top-40 mt-2 flex flex-col gap-6 pb-4 overflow-x-hidden overflow-y-scroll'>
+        <div className='absolute w-[80%] pr-3 max-sm:w-[88.5%] h-[490px] top-56 max-sm:top-40 mt-2 flex flex-col gap-6 pb-4 overflow-x-hidden overflow-y-auto'>
           {tasks.length === 0 && (
-            <div className='w-60 h-36 rounded-xl light-mode-bg-third bg-[#27233e] flex flex-col gap-4 items-center absolute left-[34%] max-sm:left-9'>
+            <div className='w-60 h-36 rounded-xl light-mode-bg-third bg-[#27233e] flex flex-col gap-4 items-center absolute left-[34%] max-sm:left-[60px]'>
               <p className='text-white font-semibold absolute top-8'>Oops! No Task..</p>
               <Link to='/create'>
               <button className='absolute w-28 font-semibold cursor-pointer text-md h-8 rounded-full text-white bg-linear-to-b from-[#967eff] to-[#684ae8] top-16 left-16'>Add New</button>
@@ -58,7 +74,8 @@ const  Home = ({tasks,onUpdateClick, setTasks, handleSearch}) => {
               </div>
           )}
           {tasks.map((task,index)=>(
-            <div key={index} className='relative light-mode-bg-third w-full min-h-32 max-sm:min-h-28 bg-[#27233e] rounded-xl flex items-center'>
+            <motion.div key={index} variants={taskVariants} initial='hidden' animate='visible' custom={index}
+            className='relative light-mode-bg-third w-full min-h-32 max-sm:min-h-28 bg-[#27233e] rounded-xl flex items-center'>
                  <div className='absolute w-10 max-sm:w-8 h-10 max-sm:h-8 border border-white rounded-full bg-white top-5 left-6 flex justify-center items-center'>
                  <div style={{ color: taskCategories[task.category]?.color }}>
                    {taskCategories[task.category]?.icon || <FaClipboardList />} 
@@ -89,7 +106,7 @@ const  Home = ({tasks,onUpdateClick, setTasks, handleSearch}) => {
                      </Link> 
                  </div>
                  <button onClick={()=>handleDelete(task._id)} className='w-28 light-mode-red-button max-sm:w-20 max-sm:h-8 max-sm:text-sm max-sm:left-[73%] max-sm:top-6 h-10 rounded-full border-2 border-[#f35759] absolute left-[85%] text-[#f35759] cursor-pointer'>Delete</button>
-            </div>
+            </motion.div>
             ))}
         </div>
        </div>

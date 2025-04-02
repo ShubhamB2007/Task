@@ -33,11 +33,6 @@ const connectDB = async () => {
 
 app.use(cors({ origin: "*" }));
 
-app.get('/api/ping', (req, res) => {
-    res.status(200).send('Server is active');
-});
-
-
 app.get('/', (req,res)=>{
     res.send('Hello World')
 })

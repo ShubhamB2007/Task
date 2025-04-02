@@ -6,7 +6,7 @@
 
         let query = {} 
         const searchData = req.query.search;
-        if(searchData){
+        if(searchData){ 
             query={
             $or:[
                 {title:{$regex: searchData, $options:"i"}}
@@ -32,6 +32,21 @@
         }
     })
 
+    router.delete('/title/:name', async (req,res)=>{
+        try {
+            const {name} = req.params
+            const result = await Task.findOneAndDelete({ title: { $regex: `^${name}$`, $options: 'i' } });
+        
+            if (!result) {
+                return res.status(404).json({ message: "Task not found" });
+            }
+
+            res.json(result);
+        } catch (error) {
+            console.log(error) 
+        }
+    })
+
 
     router.post('/', async (req,res)=>{
         try {
@@ -52,6 +67,19 @@
             const {id}= req.params
             const {title,date:dueDate,status,category,priority} = req.body
             const result =  await Task.findByIdAndUpdate(id, {title,dueDate,status,category,priority},{new:true})
+            res.json(result)
+            
+        } catch (error) {
+            console.log(error)
+        }
+    })
+
+    router.put('/title/:name',async (req,res)=>{
+        console.log("Received PUT request");    
+
+        try {
+            const {name}= req.params
+            const result =  await Task.findOneAndUpdate({ title: { $regex: `^${name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`, $options: 'i' } }, {status:'Completed'},{new:true})
             res.json(result)
             
         } catch (error) {

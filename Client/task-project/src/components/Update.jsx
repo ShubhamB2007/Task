@@ -4,6 +4,15 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css"; 
 import { useNavigate } from 'react-router-dom'; 
 import axios from 'axios';
+import {toast} from 'react-toastify'
+import { motion } from 'framer-motion';
+
+const UpdateVariants = {
+   hidden:{ opacity:0, y:50 },
+   visible:{ opacity:1, y:0,
+    transition:{ delay: 0.5, duration:0.4}
+   }
+}
 
 const Update = ({task, getData}) => {
 
@@ -46,8 +55,11 @@ const Update = ({task, getData}) => {
       console.log(taskData)
 
       try {
-         const res = await axios.put(`https://task-backend-ekpr.onrender.com/tasks/${task._id}`, taskData);   
+         const res = await axios.put(`http://localhost:3000/tasks/${task._id}`, taskData);   
          await getData()
+         toast.success('Task Updated Successfully!', {
+                position: "top-right",
+         });
          console.log(res.data);
          navigate('/');     
       } catch (error) { 
@@ -60,7 +72,9 @@ const Update = ({task, getData}) => {
            <div className='absolute w-full h-full bg-[#1a1631] rounded-l-[50px] max-sm:rounded-l-xl max-sm:rounded-r-xl flex justify-center light-mode-bg-secondary'>
                <p className='text-2xl font-bold text-white absolute top-5 mr-12 max-sm:mr-0 light-mode:text-black'>Update Task</p>
                
-               <div className='w-[80%] h-[550px] top-24 max-sm:top-16 max-sm:left-0 absolute'>
+               <motion.div 
+               variants={UpdateVariants} initial='hidden' animate='visible'
+               className='w-[80%] h-[550px] top-24 max-sm:top-16 max-sm:left-0 absolute'>
                   <div className='flex flex-col gap-2 items-center absolute top-0 left-40 max-sm:left-6'>
                   <label className='text-white text-lg mr-10 max-sm:mr-0 light-mode:text-black'>Title</label>
                   <input value={title} onChange={(e)=>setTitle(e.target.value)} type="text" className='w-[650px] light-mode-bg-third max-sm:w-[345px] h-10 rounded-lg bg-[#27233e] text-white font-semibold pl-5 outline-none' placeholder={title} />
@@ -100,9 +114,10 @@ const Update = ({task, getData}) => {
                     <option value="Entertainment">Entertainment</option>
                     </select>
                   </div>
-               </div>
-    
-               <button onClick={handleUpdate} className='w-48 light-mode-black-button max-sm:w-56 h-10 max-sm:top-[440px] max-sm:left-22 rounded-xl bg-[#ffd88d] font-semibold cursor-pointer hover:bg-[#e5bf7a] hover:duration-200 mr-10 top-96 absolute'>Save</button>
+
+                  <button onClick={handleUpdate} className='w-48 left-96 light-mode-black-button max-sm:w-56 h-10 max-sm:top-[440px] max-sm:left-22 rounded-xl bg-[#ffd88d] font-semibold cursor-pointer hover:bg-[#e5bf7a] hover:duration-200 mr-10 top-72 absolute'>Save</button>
+
+               </motion.div>
            </div>
         </div> 
       )
