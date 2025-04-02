@@ -23,7 +23,7 @@ const  Home = ({tasks,onUpdateClick, setTasks, handleSearch, getData}) => {
 
   const handleDelete = async (id)=>{
     try {
-      await axios.delete(`http://localhost:3000/tasks/`+ id)
+      await axios.delete(`https://task-backend-ekpr.onrender.com/tasks/`+ id)
       setTasks(tasks.filter(task => task.id !== id))
       await getData()
       toast.success('Task Deleted Successfully!', {
