@@ -25,7 +25,7 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault(); 
     try {
-      const url = "http://localhost:3000//api/signup";
+      const url = "https://task-backend-ekpr.onrender.com/api/signup";
       const response = await axios.post(url, data);
       console.log(response.data);
       const {name,id} = response.data.user;
