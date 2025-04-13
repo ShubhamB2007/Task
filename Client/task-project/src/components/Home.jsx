@@ -4,7 +4,7 @@ import { BsDatabase } from "react-icons/bs";
 import { FaRegClock } from "react-icons/fa6";
 import { RiFlag2Line } from "react-icons/ri";
 import { RiEditLine } from "react-icons/ri";
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import {toast} from 'react-toastify'
 import { useState,useEffect } from 'react';
 import {motion} from 'framer-motion'
@@ -21,6 +21,9 @@ const taskVariants = {
 
 const  Home = ({tasks,onUpdateClick, setTasks, handleSearch, getData}) => {
 
+  const navigate = useNavigate()
+  const userName = localStorage.getItem('userName')
+
   const handleDelete = async (id)=>{
     try {
       await axios.delete(`https://task-backend-ekpr.onrender.com/tasks/`+ id)
@@ -31,6 +34,25 @@ const  Home = ({tasks,onUpdateClick, setTasks, handleSearch, getData}) => {
       });
     } catch (error) {
       console.log(error)
+    }
+  }
+
+  const handleGoToCreate= ()=>{
+    if(userName){
+      navigate('/create')
+    }else{
+      toast.error('Login to Add Task!', {
+        position: "top-right",
+      });
+    }
+  }
+  const HandleGoToVoice= ()=>{
+    if(userName){
+      navigate('/create')
+    }else{
+      toast.error('Login to Add Task!', {
+        position: "top-right",
+      });
     }
   }
 
@@ -57,12 +79,10 @@ const  Home = ({tasks,onUpdateClick, setTasks, handleSearch, getData}) => {
            </div>
         </div>
         <p className='text-3xl text-white absolute top-40 left-32 font-bold max-sm:left-6.5 max-sm:text-xl max-sm:top-24 light-mode:text-black'>Manage Task</p>
-        <Link to='/voice'>
-        <button className='absolute max-sm:left-[170px] max-sm:ml-1 max-sm:w-28 max-sm:top-20 max-sm:mt-3 max-sm:text-[10px] max-sm:h-8 w-52 font-semibold cursor-pointer h-10 rounded-full text-white bg-linear-to-b from-[#967eff] to-[#684ae8] top-40 left-[58%]'>Use Voice Command</button>
-        </Link>
-        <Link to='/create'>
-          <button className='absolute max-sm:left-72 max-sm:ml-1 max-sm:w-20 max-sm:top-20 max-sm:mt-3 max-sm:text-[10px] max-sm:h-8 w-40 font-semibold cursor-pointer h-10 rounded-full text-white bg-linear-to-b from-[#967eff] to-[#684ae8] top-40 left-[76.8%]'>Add New Task</button>
-          </Link> 
+     
+        <button onClick={handleGoToCreate} className='absolute max-sm:left-[170px] max-sm:ml-1 max-sm:w-28 max-sm:top-20 max-sm:mt-3 max-sm:text-[10px] max-sm:h-8 w-52 font-semibold cursor-pointer h-10 rounded-full text-white bg-linear-to-b from-[#967eff] to-[#684ae8] top-40 left-[58%]'>Use Voice Command</button>
+          <button onClick={HandleGoToVoice} className='absolute max-sm:left-72 max-sm:ml-1 max-sm:w-20 max-sm:top-20 max-sm:mt-3 max-sm:text-[10px] max-sm:h-8 w-40 font-semibold cursor-pointer h-10 rounded-full text-white bg-linear-to-b from-[#967eff] to-[#684ae8] top-40 left-[76.8%]'>Add New Task</button>
+
          
         <div className='absolute w-[80%] pr-3 max-sm:w-[88.5%] h-[490px] top-56 max-sm:top-40 mt-2 flex flex-col gap-6 pb-4 overflow-x-hidden overflow-y-auto'>
           {tasks.length === 0 && (
