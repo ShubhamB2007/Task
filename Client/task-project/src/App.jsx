@@ -9,8 +9,6 @@ import Update from './components/Update'
 import Settings from './components/Settings'
 import CreateVoice from './components/CreateVoice'
 import SpeechTest from './components/SpeechTest'
-import SignUp from './components/SignUp'
-import Login from './components/Login'
 
 function App() {
 
@@ -31,16 +29,16 @@ function App() {
   const [tasks, setTasks] = useState([])
   const [selectedTaskId, setSelectedTaskId] = useState(null)
   const [searchQuery, setSearchQuery] = useState('')
-  const userId = localStorage.getItem('id')
   
     const getData = async()=>{
-       const res = await axios.get(`http://localhost:3000/tasks?search=${searchQuery}&userId=${userId}`)
+       const res = await axios.get(`https://task-backend-ekpr.onrender.com/tasks?search=${searchQuery}`)
        console.log(res.data)
        setTasks(res.data)
     }
 
     const handleSearch = (e)=>{
       setSearchQuery(e.target.value)
+      // console.log(e.target.value)
     }
 
     useEffect(() => {
@@ -59,14 +57,6 @@ function App() {
        <Route
        path='/create'
        element={<Create setTasks={setTasks}/>}
-       />
-       <Route
-       path='/login'
-       element={<Login/>}
-       />
-       <Route
-       path='/signup'
-       element={<SignUp/>}
        />
        <Route
        path='/voice'

@@ -82,7 +82,7 @@ const CreateVoice = ({setTasks, getData}) => {
    const handleSubmit = async()=>{
     console.log(taskData)
     try {
-      const res = await axios.post('http://localhost:3000/tasks', taskData )
+      const res = await axios.post('https://task-backend-ekpr.onrender.com/tasks', taskData )
       setTasks(prevTasks => [...prevTasks, res.data])
       console.log(res.data)
       toast.success('Task Created Sucessfully!', {
@@ -97,7 +97,7 @@ const CreateVoice = ({setTasks, getData}) => {
       console.log("I'm delete")
       const cleanedTask = deleteTask.replace(/[.,!?]$/, '').trim(); 
        try {
-         const res = await axios.delete('http://localhost:3000/tasks/title/' + cleanedTask  )
+         const res = await axios.delete('https://task-backend-ekpr.onrender.com/tasks/title/' + cleanedTask  )
          await getData()
          toast.success('Task Deleted Successfully!', {
                  position: "top-right",
@@ -115,7 +115,7 @@ const CreateVoice = ({setTasks, getData}) => {
       const cleanedTask = markTask.replace(/[.,!?]$/, '').trim(); 
 
       try {
-        const res = await axios.put(`http://localhost:3000/tasks/title/` + cleanedTask)
+        const res = await axios.put(`https://task-backend-ekpr.onrender.com/tasks/title/` + cleanedTask)
         await getData()
         toast.success('Task is Now Marked As Complete', {
                 position: "top-right",
