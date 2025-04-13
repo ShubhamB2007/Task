@@ -4,8 +4,9 @@
 
     router.get('/',async (req,res)=>{
 
-        let query = {} 
         const searchData = req.query.search;
+        const userId = req.query.userId
+        let query = {userId} 
         if(searchData){ 
             query={
             $or:[
@@ -50,8 +51,8 @@
 
     router.post('/', async (req,res)=>{
         try {
-            const {title,date:dueDate,status,category,priority} = req.body
-            const newTask = new Task({title,dueDate,status,category,priority}) 
+            const {title,date:dueDate,status,category,priority,userId} = req.body
+            const newTask = new Task({title,dueDate,status,category,priority,userId}) 
             const saveTask = await newTask.save()
             res.json(saveTask)
         } catch (error) {

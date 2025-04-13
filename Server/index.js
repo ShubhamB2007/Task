@@ -6,6 +6,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 const Task = require('./models/Task')
 const taskRoute = require('./routes/tasks')
+const loginRoute = require('./routes/login')
+const signupRoute = require('./routes/signup')
+
 
 const mongoose = require('mongoose');
 const tasks = require('./seed');
@@ -38,6 +41,8 @@ app.get('/', (req,res)=>{
 })
 
 app.use('/tasks', taskRoute)
+app.use('/api/login', loginRoute)
+app.use('/api/signup', signupRoute)
 
 app.listen(port, "0.0.0.0", () => {
     console.log(`Example app listening on port ${port}`)

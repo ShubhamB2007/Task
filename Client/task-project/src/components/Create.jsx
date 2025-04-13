@@ -23,8 +23,9 @@ const Create = ({setTasks}) => {
    const [status, setStatus] = useState('Pending')
    const [category, setCategory] = useState('Work')
    const [priority, setPriority] = useState('Low')
+   const userId = localStorage.getItem('id')
 
-   const taskData = {date,title,status,category,priority}
+   const taskData = {date,title,status,category,priority,userId}
 
    function formatDate(date) {
     const months = [
@@ -59,8 +60,8 @@ const Create = ({setTasks}) => {
    }
 
   return (
-    <div className='absolute w-[80%] max-sm:w-full h-full left-[20%] max-sm:left-0 max-sm:top-20 bg-[#0a061d]  light-mode-bg-main'>
-       <div className='absolute w-full h-full bg-[#1a1631] rounded-l-[50px] max-sm:rounded-l-xl max-sm:rounded-r-xl flex justify-center  light-mode-bg-secondary'>
+    <div className='absolute w-[80%] max-sm:w-full h-full left-[20%] max-sm:left-0 max-sm:top-0 bg-[#0a061d] light-mode-bg-main'>
+       <div className='absolute w-full h-full bg-[#1a1631] rounded-l-[50px] max-sm:rounded-l-xl max-sm:rounded-r-xl flex justify-center light-mode-bg-secondary'>
            <p className='text-2xl font-bold text-white absolute top-5 mr-10 max-sm:mr-0 light-mode:text-black'>Add A New Task</p>
            
            <motion.div 

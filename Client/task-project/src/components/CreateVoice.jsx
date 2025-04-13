@@ -132,7 +132,7 @@ const CreateVoice = ({setTasks, getData}) => {
   }
 
   return (
-    <div className='absolute w-[80%] max-sm:w-full h-full left-[20%] max-sm:left-0 max-sm:top-20 bg-[#0a061d]  light-mode-bg-main'>
+    <div className='absolute w-[80%] max-sm:w-full h-full left-[20%] max-sm:left-0 max-sm:top-0 bg-[#0a061d]  light-mode-bg-main'>
        <div className='absolute w-full h-full bg-[#1a1631] rounded-l-[50px] max-sm:rounded-l-xl max-sm:rounded-r-xl flex justify-center  light-mode-bg-secondary'>
            <p className='text-2xl font-bold text-white absolute top-11 mr-10 max-sm:mr-0 max-sm:mt-2 max-sm:text-40 light-mode:text-black'>Add/Delete/Mark By Speech</p>
            <motion.div variants={SpeechVariants} initial='hidden' animate='visible' className='flex justify-center h-[550px] absolute top-36'>

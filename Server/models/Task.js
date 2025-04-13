@@ -6,6 +6,7 @@ const taskSchema = new mongoose.Schema({
      dueDate:{type:String, required:true},
      status:{type:String, required:true},
      category:{type:String, required:true},
+     userId:{type:String,required:true}
     
   }, { timestamps: true });
   
