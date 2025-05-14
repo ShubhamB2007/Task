@@ -40,6 +40,10 @@ app.get('/', (req,res)=>{
     res.send('Hello World')
 })
 
+app.get('/api/ping', (req, res) => {
+    res.status(200).send('Server is active');
+});
+
 app.use('/tasks', taskRoute)
 app.use('/api/login', loginRoute)
 app.use('/api/signup', signupRoute)
