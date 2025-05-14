@@ -70,7 +70,7 @@ const  Home = ({tasks,onUpdateClick, setTasks, handleSearch, getData}) => {
   };
 
   return (  
-    <div className='absolute w-[80%] h-full left-[20%] max-sm:left-0 max-sm:w-full max-sm:top-20 bg-[#0a061d] light-mode-bg-main'>
+    <div className='absolute w-[80%] h-full left-[20%] max-sm:left-0 max-sm:w-full max-sm:top-0 bg-[#0a061d] light-mode-bg-main'>
        <div className='absolute w-full h-full bg-[#1a1631] rounded-l-[50px] max-sm:rounded-l-xl max-sm:rounded-r-xl flex justify-center light-mode-bg-secondary'>
         <div className='w-[80%] h-20 max-sm:top-5 max-sm:w-[355px] max-sm:h-12 rounded-xl bg-[#27233e] absolute top-10 flex items-center light-mode-bg-third'>
            <div className='w-96 h-12 rounded-full light-mode-border border border-[#6b6683] text-white ml-10 max-sm:ml-[-10px] max-sm:border-none absolute'>
